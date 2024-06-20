@@ -24,7 +24,7 @@ export const RegisterUseCase = async (body: RegisterDto, repository: IStorageRep
 			data: null
 		};
 	} catch (error) {
-		console.log(error);
+		console.log("Register Error", error);
 		return {
 			isSuccess: false,
 			status: 500,

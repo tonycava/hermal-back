@@ -1,4 +1,5 @@
 export enum WsEvent {
 	CONNECTION = "connection",
-	MESSAGE = "message"
+	MESSAGE = "message",
+  JOIN_GROUP = "joinGroup"
 }

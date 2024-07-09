@@ -1,5 +1,5 @@
 To install dependencies:
-```sh
+``sh
 bun install
 ```
 

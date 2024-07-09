@@ -1,10 +1,9 @@
 import { Socket } from "socket.io";
-import { ChatDto } from "@/chat/interfaces/dto/ChatDto";
-import { MessageAdapter } from "@/chat/repositories/MessageAdapter";
 import { OnChatUseCase } from "@/chat/usecases/OnChatUseCase";
+import { AddChatDto } from "../interfaces/dto/AddChatDto";
+import { ChatSqliteRepository } from "../repositories/ChatSqliteRepository";
 
-export const onChat = (socket: Socket, data: ChatDto) => {
-	console.log("start OnChat")
-	const result = OnChatUseCase(data, MessageAdapter());
-	console.log("end OnChat")
+export const onChat = async (socket: Socket, data: AddChatDto) => {
+	const result = await OnChatUseCase(data, ChatSqliteRepository());
+  socket.to(data.groupId).emit("message", data);
 }

@@ -5,3 +5,4 @@ export interface IStorageRepository {
 	addUser(user: AddUserDto): Promise<void>
 	getUserByEmail(email: string): Promise<User | null>
 }
+

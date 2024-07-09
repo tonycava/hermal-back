@@ -1,1 +1,5 @@
-export interface IChatRepository {}
+import { AddChatDto } from "./dto/AddChatDto";
+
+export interface IChatStorageRepository {
+  addChat(chat: AddChatDto): Promise<void>
+}

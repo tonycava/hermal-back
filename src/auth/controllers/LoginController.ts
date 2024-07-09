@@ -9,3 +9,4 @@ export const LoginController = async (c: Context, next: Next) => {
 
 	return c.json(result, result.status);
 }
+

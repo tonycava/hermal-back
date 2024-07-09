@@ -1,18 +1,27 @@
-import { IChatRepository } from "@/chat/interfaces/IChatRepository";
-import { ChatDto } from "@/chat/interfaces/dto/ChatDto";
 import { UseCaseOutput } from "@/common/interfaces/UseCaseOutput";
+import { IChatStorageRepository } from "../interfaces/IChatRepository";
+import { AddChatDto } from "../interfaces/dto/AddChatDto";
 
-type OnChatUseCaseOutput = any;
+type OnChatUseCaseOutput = null;
 
-export const OnChatUseCase = async (data: ChatDto, repository: IChatRepository): Promise<UseCaseOutput<OnChatUseCaseOutput>> => {
-	console.log("===OnChatUseCase===")
-	console.log("data", data)
-	console.log("repository", repository)
+export const OnChatUseCase = async (data: AddChatDto, repository: IChatStorageRepository): Promise<UseCaseOutput<OnChatUseCaseOutput>> => {
+	try {
+		await repository.addChat(data);
 
-	return {
-		status: 200,
-		data: "test",
-		isSuccess: true,
+    return {
+      isSuccess: true,
+      status: 201,
+      data: null
+    }
+	} catch (error) {
+		console.log("OnChat Error", error);
+		return {
+			isSuccess: false,
+			status: 500,
+			message: "Something went wrong !"
+		};
 	}
 
 }
+
+

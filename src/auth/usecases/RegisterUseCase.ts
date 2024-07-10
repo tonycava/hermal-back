@@ -17,7 +17,7 @@ export const RegisterUseCase = async (body: RegisterDto, repository: IStorageRep
 			};
 		}
 
-		await repository.addUser({ email: body.email, password: bcrypt.hashSync(body.password, 10) });
+		await repository.addUser({ username: body.username, email: body.email, password: bcrypt.hashSync(body.password, 10) });
 		return {
 			isSuccess: true,
 			status: 201,

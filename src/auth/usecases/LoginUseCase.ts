@@ -26,7 +26,7 @@ export const LoginUseCase = async (body: LoginDto, repository: IStorageRepositor
 			};
 		}
 
-		const token = signToken({ id: user.id });
+		const token = signToken({ id: user.id, username: user.username });
 
 		return {
 			isSuccess: true,

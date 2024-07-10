@@ -3,12 +3,12 @@ import { IChatStorageRepository } from "../interfaces/IChatRepository";
 import { AddChatDto } from "../interfaces/dto/AddChatDto";
 import ChatSend from "@/chat/events/ChatSend";
 
-type OnChatUseCaseOutput = null;
+type AddChatUseCaseOutput = null;
 
 let sub = undefined;
 
-export const OnChatUseCase = async (data: AddChatDto, repository: IChatStorageRepository): Promise<UseCaseOutput<OnChatUseCaseOutput>> => {
-	sub ??= ChatSend.subscribe(async() => {
+export const AddChatUseCase = async (data: AddChatDto, repository: IChatStorageRepository): Promise<UseCaseOutput<AddChatUseCaseOutput>> => {
+	sub ??= ChatSend.subscribe(async () => {
 		 await repository.addChat(data);
 	});
 
@@ -21,7 +21,7 @@ export const OnChatUseCase = async (data: AddChatDto, repository: IChatStorageRe
       data: null
     }
 	} catch (error) {
-		console.log("OnChat Error", error);
+		console.log("AddChat Error", error);
 		return {
 			isSuccess: false,
 			status: 500,

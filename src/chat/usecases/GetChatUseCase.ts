@@ -3,9 +3,9 @@ import { IChatStorageRepository } from "../interfaces/IChatRepository";
 import { Chat } from "@/common/entities/Chat";
 import { UuidDto } from '@/common/interfaces/dto/UuidDto';
 
-type OnGetChatUseCase = Chat[];
+type GetChatUseCase = Chat[];
 
-export const OnGetChatUseCase = async (groupId: UuidDto, repository: IChatStorageRepository): Promise<UseCaseOutput<OnGetChatUseCase>> => {
+export const GetChatUseCase = async (groupId: UuidDto, repository: IChatStorageRepository): Promise<UseCaseOutput<GetChatUseCase>> => {
 	try {
 		const chats = await repository.getChats(groupId);
 
@@ -15,7 +15,7 @@ export const OnGetChatUseCase = async (groupId: UuidDto, repository: IChatStorag
       data: chats
     }
 	} catch (error) {
-		console.log("OnChat Error", error);
+		console.log("GetChat Error", error);
 		return {
 			isSuccess: false,
 			status: 500,

@@ -5,7 +5,7 @@ import { Group } from '@/common/entities/Group';
 type OnGetGroupUseCaseOutput = Group[];
 
 
-export const OnGetGroupUseCase = async (userId: string, repository: IChatStorageRepository): Promise<UseCaseOutput<OnGetGroupUseCaseOutput>> => {
+export const GetGroupUseCase = async (userId: string, repository: IChatStorageRepository): Promise<UseCaseOutput<OnGetGroupUseCaseOutput>> => {
 	try {
 		const groups = await repository.getGroups(userId);
 		return {
@@ -14,7 +14,7 @@ export const OnGetGroupUseCase = async (userId: string, repository: IChatStorage
 			data: groups
 		};
 	} catch (error) {
-		console.log('OnChat Error', error);
+		console.log('GetGroup Error', error);
 		return {
 			isSuccess: false,
 			status: 500,

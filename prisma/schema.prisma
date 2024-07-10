@@ -19,7 +19,7 @@ model User {
   email    String
   password String
   chats    Chat[]
-  groups   Group[]
+  groups   Group[] @relation("UserGroups")
 }
 
 model Chat {
@@ -34,6 +34,6 @@ model Chat {
 model Group {
   id    String @id @default(uuid())
   name  String
-  users User[]
+  users User[] @relation("UserGroups")
   Chat  Chat[]
 }

@@ -1,8 +1,9 @@
-import { IChatStorageRepository } from '../interfaces/IChatRepository';
 import prisma from '@/common/db';
 import { Chat } from '@/common/entities/Chat';
-import { User } from '@prisma/client';
 import { Group } from '@/common/entities/Group';
+import { AddGroupDto } from '@/chat/interfaces/dto/AddGroupDto';
+import { IChatStorageRepository } from '@/chat/interfaces/IChatRepository';
+import { SearchableUser } from '@/chat/interfaces/SearchableUser';
 
 interface IChatDbRepository extends IChatStorageRepository {
 	isUserInGroup(userId: string, groupId: string): Promise<boolean>;
@@ -39,6 +40,23 @@ export const ChatSqliteRepository = (): IChatDbRepository => {
 		getGroups(userId: string): Promise<Group[]> {
 			return prisma.group.findMany({
 				where: { users: { some: { id: userId } } }
+			});
+		},
+		async createGroup(group: AddGroupDto): Promise<Group> {
+			return prisma.group.create({
+				data: {
+					name: group.name,
+					users: {
+						connect: group.users.map(id => ({ id }))
+					}
+				}
+			});
+		},
+		async searchUser(searchTerm: string): Promise<SearchableUser[]> {
+			return prisma.user.findMany({
+				where: { username: { contains: searchTerm } },
+				select: { id: true, username: true },
+				take: 10,
 			});
 		}
 	};

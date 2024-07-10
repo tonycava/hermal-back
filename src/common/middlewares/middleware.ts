@@ -1,6 +1,7 @@
 import { ZodError, ZodSchema } from "zod";
-import { Context, Next } from "hono";
 import { Socket } from "socket.io";
+import { NextFunction } from "../interfaces/NextFunction";
+
 
 type MiddlewareFunction = {
 	(body: unknown, schema: ZodSchema): void
@@ -20,9 +21,8 @@ export const WsMiddleware = (socket: Socket, data: unknown, schema: ZodSchema, m
 	}
 }
 
-export const CheckBodyMiddleware = async (c: Context, next: Next, schema: ZodSchema, middleware = DefaultMiddleware) => {
+export const CheckBodyMiddleware = async (body: unknown, next: NextFunction, schema: ZodSchema, middleware = DefaultMiddleware) => {
 	try {
-		const body = await c.req.json<unknown>()
 		middleware(body, schema)
 		await next();
 	} catch (error) {
@@ -34,9 +34,8 @@ export const CheckBodyMiddleware = async (c: Context, next: Next, schema: ZodSch
 				const path = err.path.join(".");
 				formattedErrors[path] = err.message;
 			});
-
-			return c.json({ status: 400, message: "Not well formated body", data: formattedErrors }, 400);
+			throw new Error("Not well formated body", { cause: { status: 500, data: formattedErrors } })
 		}
-		return c.json({ status: 400, message: "Internal Server Error", data: null }, 500);
+		throw new Error("Internal Server Error", { cause: 500 })
 	}
 }

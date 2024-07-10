@@ -31,7 +31,7 @@ export const CheckBodyMiddleware = async (body: unknown, next: NextFunction, sch
 			const formattedErrors: { [key: string]: string } = {};
 
 			error.errors.forEach((err) => {
-				const path = err.path.join(".");
+				const path = err.path.join(".") || "error";
 				formattedErrors[path] = err.message;
 			});
 			throw new Error("Not well formated body", { cause: { status: 500, data: formattedErrors } })

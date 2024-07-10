@@ -3,15 +3,17 @@ import { cors } from 'hono/cors'
 
 import AuthRouter from "@/auth/AuthRouter";
 import ChatRouter from "@/chat/ChatRouter";
-import { StatusCode } from "@/common/interfaces/StatusCode";
 
 import "@/WsRouteur"
+import { logger } from 'hono/logger';
+import { StatusCode } from '@/common/interfaces/StatusCode';
 
 const app = new Hono();
 
 const PORT = Bun.env.PORT || 3000;
 
 app.use('*', cors())
+app.use(logger())
 
 app.get("/", (c) => c.text("Hello, world!"))
 

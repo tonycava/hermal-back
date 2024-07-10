@@ -12,7 +12,7 @@ const io = new Server({
 
 io.on(WsEvent.CONNECTION, (socket) => {
 
-	socket.on(WsEvent.MESSAGE, (data) => WsMiddleware(socket, data, addChatDto) && ChatController.onChat(socket, data));
+	socket.on(WsEvent.CHAT_SEND, (data) => WsMiddleware(socket, data, addChatDto) && ChatController.onChat(socket, data));
 
 	socket.on(WsEvent.JOIN_GROUP, (data) => WsMiddleware(socket, data, joinGroupDto) && GroupController.joinGroup(socket, data));
   

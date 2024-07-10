@@ -22,7 +22,8 @@ export const ChatSqliteRepository = (): IChatDbRepository => {
 		},
 		getChats(groupId: string): Promise<Chat[]> {
 			return prisma.chat.findMany({
-				where: { groupId }
+				where: { groupId },
+				orderBy: { createdAt: 'asc' }
 			});
 		},
 		async isUserInGroup(userId: string, groupId: string): Promise<boolean> {

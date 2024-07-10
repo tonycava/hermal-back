@@ -1,12 +1,13 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors'
+import { logger } from 'hono/logger';
 
 import AuthRouter from "@/auth/AuthRouter";
 import ChatRouter from "@/chat/ChatRouter";
 
-import "@/WsRouteur"
-import { logger } from 'hono/logger';
 import { StatusCode } from '@/common/interfaces/StatusCode';
+
+import "@/ws.router"
 
 const app = new Hono();
 

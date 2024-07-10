@@ -8,9 +8,7 @@ import { CreateGroutUseCase } from '@/chat/usecases/CreateGroupUseCase';
 import { AddGroupDto } from '@/chat/interfaces/dto/AddGroupDto';
 
 const joinGroup = async (socket: Socket, data: JoinGroupDto) => {
-	console.log(socket.data)
-	console.log(data)
-	socket.to(data).emit('message', data);
+	socket.join(data);
 };
 
 const getGroups = async (c: Context) => {

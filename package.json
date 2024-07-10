@@ -1,7 +1,7 @@
 {
   "name": "hermal-back",
   "scripts": {
-    "dev": "bun run --hot src/index.ts",
+    "dev": "bun run --hot src/router.ts",
     "build": "bun build ./src --target=bun --outfile=build/server.js"
   },
   "dependencies": {

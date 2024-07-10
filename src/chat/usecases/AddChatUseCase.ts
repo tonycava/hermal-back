@@ -5,14 +5,9 @@ import ChatSend from "@/chat/events/ChatSend";
 
 type AddChatUseCaseOutput = null;
 
-let sub = undefined;
-
 export const AddChatUseCase = async (data: AddChatDto, repository: IChatStorageRepository): Promise<UseCaseOutput<AddChatUseCaseOutput>> => {
-	sub ??= ChatSend.subscribe(async () => {
-		 await repository.addChat(data);
-	});
-
 	try {
+		await repository.addChat(data);
 		ChatSend.emit(data);
 
     return {

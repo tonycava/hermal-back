@@ -13,6 +13,7 @@ const getChats = async (c: Context) => {
 
 export const onChat = async (socket: Socket, data: AddChatDto) => {
 	const result = await AddChatUseCase(data, ChatSqliteRepository());
+	console.log(result);
 	socket.to(data.groupId).emit(WsEvent.SEND_CHAT, data);
 };
 

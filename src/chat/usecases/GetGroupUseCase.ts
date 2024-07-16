@@ -8,6 +8,9 @@ type OnGetGroupUseCaseOutput = Group[];
 export const GetGroupUseCase = async (userId: string, repository: IChatStorageRepository): Promise<UseCaseOutput<OnGetGroupUseCaseOutput>> => {
 	try {
 		const groups = await repository.getGroups(userId);
+
+		// @ts-ignore
+		console.log(groups.at(0).Chat);
 		return {
 			isSuccess: true,
 			status: 201,

@@ -5,7 +5,7 @@ import { AddGroupDto } from '@/chat/interfaces/dto/AddGroupDto';
 type CreateGroupUseCaseOutput = { id: string; name: string };
 
 
-export const CreateGroutUseCase = async (data: AddGroupDto, repository: IChatStorageRepository): Promise<UseCaseOutput<CreateGroupUseCaseOutput>> => {
+export const CreateGroupUseCase = async (data: AddGroupDto, repository: IChatStorageRepository): Promise<UseCaseOutput<CreateGroupUseCaseOutput>> => {
 	try {
 		const group = await repository.createGroup(data);
 

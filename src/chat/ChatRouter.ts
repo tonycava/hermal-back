@@ -29,6 +29,19 @@ ChatRouter.post(
 	GroupController.createGroup
 );
 
+ChatRouter.put(
+	'/groups/:groupId/:userId',
+	checkAuth,
+	(c, next) => CheckBodyMiddleware(c.req.param('userId'), next, uuidDto),
+	GroupController.addUsersToGroup
+);
+
+ChatRouter.get(
+	'/groups/:groupId',
+	checkAuth,
+	GroupController.getGroupById
+);
+
 ChatRouter.get(
 	'/:groupId',
 	checkAuth,

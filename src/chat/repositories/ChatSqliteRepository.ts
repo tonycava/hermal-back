@@ -43,6 +43,11 @@ export const ChatSqliteRepository = (): IChatDbRepository => {
 				where: { users: { some: { id: userId } } }
 			});
 		},
+		getGroupInfo(groupId: string): Promise<Group | null> {
+			return prisma.group.findFirst({
+				where: { id: groupId }
+			});
+		},
 		async createGroup(group: AddGroupDto): Promise<Group> {
 			return prisma.group.create({
 				data: {
@@ -58,6 +63,16 @@ export const ChatSqliteRepository = (): IChatDbRepository => {
 				where: { username: { contains: searchTerm } },
 				select: { id: true, username: true },
 				take: 10,
+			});
+		},
+		async addUserToGroup(groupId: string, userId: string): Promise<void> {
+			await prisma.group.update({
+				where: { id: groupId },
+				data: {
+					users: {
+						connect: { id: userId }
+					}
+				}
 			});
 		}
 	};

@@ -8,6 +8,8 @@ export interface IChatStorageRepository {
   addChat(chat: AddChatDto): Promise<void>;
   getChats(groupId: string): Promise<Chat[]>;
   getGroups(userId: string): Promise<Group[]>;
+  getGroupInfo(groupId: string): Promise<Group | null>;
   createGroup(group: AddGroupDto): Promise<Group>;
   searchUser(searchTerm: string): Promise<SearchableUser[]>;
+  addUserToGroup(groupId: string, userId: string): Promise<void>;
 }

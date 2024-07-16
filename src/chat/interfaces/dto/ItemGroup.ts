@@ -5,11 +5,12 @@ export type ItemGroup = {
 } & Group;
 
 export const MapPrismaToItemGroup = (groups: any[]): ItemGroup[] => {
-	return groups.map((group) => {
+	return groups.map(({ id, name, Chat }) => {
+		const lastChat = Chat.length >= 1 ? Chat[0].content : '';
 		return {
-			lastChat: group.Chat[0].content,
-			name: group.name,
-			id: group.id
+			lastChat,
+			name,
+			id
 		};
 	});
 };
